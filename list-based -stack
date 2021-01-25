@@ -1,0 +1,78 @@
+#  stack is a data structure like array but provides values based on LIFO
+#  to  get the first element you added to it you have to elemenate the items added after
+#  in a lifo order.
+#  like redos and backs in editors and browsers
+
+#  building our stack
+'''
+This stack creates one type array with assigned limit of items in advance
+'''
+class Stack:
+    def __init__(self, max_size):
+        self.__max_size = max_size
+        self.__top = -1
+        self.__container = []
+
+    def __repr__(self):
+        representation = f'This stack provides a container of type {self.__dtype}, with max length of {self.__max_size}'
+        return representation
+    
+    def __str__(self):
+        return 'a stack with one data type and max length'
+    #  pushes item to the stack
+    def push(self, item):
+        if self.is_empty():
+            self.__dtype = type(item)
+            self.__top += 1
+            self.__container.append(item)
+        else:
+            if self.__top >= (self.__max_size - 1):
+                raise Exception(f'InsersionError You exceeded limit {self.__max_size}')
+            if type(item) != self.__dtype:
+                raise TypeError('You only have to insert {0}'.format(self.__dtype))
+            self.__top += 1
+            self.__container.append(item)
+    #  check if empty
+    def is_empty(self):
+        return (self.__top < 0 )
+    #  gets top
+    def get_top(self):
+        if self.__top < 0 :
+            return 'Stack is Empty'
+        return self.__top
+    #  elemenates the current top
+    def pop(self):
+        if self.is_empty():
+            raise Exception('Stack is already Empty')
+        else:
+            self.__container.pop(self.__top)
+            self.__top -= 1
+    #  elemenates the current top but assigns to a variable
+    def ass_pop(self):
+        if self.is_empty():
+            raise Exception('Stack is already Empty')
+        else:
+            vrl = self.__container[self.__top]
+            self.__container.pop(self.__top)
+            self.__top -= 1
+            return vrl
+    # ?shows current items in stack
+    def show_items(self):
+        return list(reversed(self.__container))
+
+    def d_type(self):
+        return type(self.__container[0])
+
+s = Stack(5)
+s.push(['2'])
+s.push(['5', '4'])
+s.push([100])
+s.push(['7'])
+s.push(['100'])
+last = s.ass_pop()
+# s.push('50')
+# s.push('50')
+print(s.get_top())
+print(s.show_items())
+print(last)
+print(s.d_type())
